@@ -1,7 +1,7 @@
 class CreateAvailabilityStatuses < ActiveRecord::Migration[7.2]
   def change
     create_table :availability_statuses do |t|
-      t.string :availabilityStatus, null: false
+      t.string :status, null: false
       t.string :time
       t.string :location
       t.date :date, default: -> { "CURRENT_DATE" }

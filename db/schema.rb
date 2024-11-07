@@ -15,10 +15,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_093930) do
   enable_extension "plpgsql"
 
   create_table "availability_statuses", force: :cascade do |t|
-    t.string "availabilityStatus"
+    t.string "status", null: false
     t.string "time"
     t.string "location"
-    t.date "date"
+    t.date "date", default: -> { "CURRENT_DATE" }
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,12 +26,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_28_093930) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "password_digest"
-    t.string "role"
+    t.string "role", default: "member", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "availability_statuses", "users"
