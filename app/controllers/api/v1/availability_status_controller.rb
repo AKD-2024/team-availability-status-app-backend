@@ -13,7 +13,6 @@ module Api
       end
 
       def index
-          begin
             date_param = params[:date]
             selected_date = date_param ? Date.parse(date_param) : Date.today
 
@@ -24,10 +23,6 @@ module Api
             else
               render json: statuses, include: { user: { only: :name } }, status: :ok
             end
-          rescue => e
-            Rails.logger.error e.message
-            render json: { msg: 'Server error' }, status: :internal_server_error
-          end
       end
 
       private
