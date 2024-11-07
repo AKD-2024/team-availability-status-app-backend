@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  availabilityStatus: MyString
+  time: MyString
+  location: MyString
+  date: 2024-10-28
+  user: one
+
+two:
+  availabilityStatus: MyString
+  time: MyString
+  location: MyString
+  date: 2024-10-28
+  user: two

@@ -1,0 +1,32 @@
+<table border='1' cellpadding='3' cellspacing='0' 
+  style='border-collapse: collapse; width: auto; font-family: Arial, sans-serif; color: #003366; font-size: 14px; text-align: center;'>
+  <thead>
+    <tr>
+      <th style='padding: 5px; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd;'></th>
+      <th style='padding: 5px; border-top: 1px solid #ddd; border-left: 1px solid #ddd;'></th>
+      <th style='padding: 5px;'>WorkFromOffice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% name_counts = Hash.new(0) %>
+    <% @availability_statuses.each do |status| %>
+      <% first_name = status.user.name.split(' ')[0] %>
+      <% name_counts[first_name] += 1 %>
+    <% end %>
+
+    <% @availability_statuses.sort_by { |status| status.user.name }.each do |status| %>
+      <% full_name = status.user.name %>
+      <% first_name = full_name.split(' ')[0] %>
+      <% display_name = name_counts[first_name] > 1 ? full_name : first_name %>
+
+      <% time = status.time ? Time.parse(status.time).strftime('%I:%M %p') : 'Leave' %>
+      <% work_from_office = status.location == 'office' ? 'yes' : '' %>
+
+      <tr>
+        <td style='padding: 5px; text-align: center;'><%= display_name %></td>
+        <td style='padding: 5px; text-align: center;'><%= time %></td>
+        <td style='padding: 5px; text-align: center;'><%= work_from_office %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
